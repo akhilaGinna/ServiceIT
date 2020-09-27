@@ -221,9 +221,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\TicketData\Create.cshtml" />
-    <Content Include="Views\TicketData\Delete.cshtml" />
     <Content Include="Views\TicketData\Details.cshtml" />
-    <Content Include="Views\TicketData\Edit.cshtml" />
     <Content Include="Views\TicketData\Index.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />

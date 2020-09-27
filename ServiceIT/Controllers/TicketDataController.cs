@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using ServiceIT.Models;
 
@@ -21,25 +22,31 @@ namespace ServiceIT.Controllers
             return View(db.tblTicketDatas.ToList());
         }
 
-        // GET: TicketData/Details/5
-        public ActionResult Details(Guid? id)
+
+        public ActionResult Details()
         {
-            if (id == null)
+            var res = from l in db.tblTicketDatas.ToList() group l by new { l.ProjectName } into g select new { g.Key.ProjectName, value = g.Distinct().Count() };
+            List<String> lstStr = new List<string>();
+            List<int> lstInt = new List<int>();
+
+            foreach (var item in res)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                lstStr.Add(item.ProjectName);
+                lstInt.Add(item.value);
             }
-            tblTicketData tblTicketData = db.tblTicketDatas.Find(id);
-            if (tblTicketData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblTicketData);
+
+            var dateGrouped = db.tblTicketDatas.GroupBy(x => x.ProjectName)
+                       .Select(x => new { Project = x.Key, Number = x.Distinct().Count() });
+
+            ViewBag.XVal = lstStr;
+            ViewBag.Yval = lstInt;
+            return View();
         }
 
         // GET: TicketData/Create
         public ActionResult Create()
         {
-           ViewBag.DList = new SelectList(db.tblEmployeeDetails.Select(x => x.DepartmentName).Distinct());
+            ViewBag.DList = new SelectList(db.tblEmployeeDetails.Select(x => x.DepartmentName).Distinct());
             return View();
         }
 
@@ -70,63 +77,6 @@ namespace ServiceIT.Controllers
             }
 
             return View(tblTicketData);
-        }
-
-        // GET: TicketData/Edit/5
-        public ActionResult Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tblTicketData tblTicketData = db.tblTicketDatas.Find(id);
-            if (tblTicketData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblTicketData);
-        }
-
-        // POST: TicketData/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RequestID,ProjectName,DepartmentName,RequestedBy,Description,TimeStamp")] tblTicketData tblTicketData)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(tblTicketData).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(tblTicketData);
-        }
-
-        // GET: TicketData/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tblTicketData tblTicketData = db.tblTicketDatas.Find(id);
-            if (tblTicketData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblTicketData);
-        }
-
-        // POST: TicketData/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            tblTicketData tblTicketData = db.tblTicketDatas.Find(id);
-            db.tblTicketDatas.Remove(tblTicketData);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
