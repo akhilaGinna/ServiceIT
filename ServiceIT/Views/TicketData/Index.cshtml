@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ServiceIT.Models.tblTicketData>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@Styles.Render("~/Content/Gridmvc")
+
+Scripts.Render("~/bundles/Gridmvc")
+
+<h2>Tickets Overview</h2>
+
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Grid(Model).Named("tblTicketData").Columns(c =>
+   {
+       c.Add(X => X.ProjectName).Titled("Project Name").Filterable(true).Sortable(true);
+       c.Add(X => X.DepartmentName).Titled("Department Name").Filterable(true).Sortable(true);
+       c.Add(X => X.RequestedBy).Titled("Requested By").Filterable(true).Sortable(true);
+       c.Add(X => X.Description).Titled("Description").Filterable(true).Sortable(true);
+       c.Add(X => X.TimeStamp).Titled("created Date").Filterable(true).Sortable(true);
+
+   }).WithPaging(5).EmptyText("No data found")
+    </div>
+</div>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeStamp)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeStamp)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.RequestID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.RequestID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.RequestID })
+                </td>
+            </tr>
+        }
+
+    </table>*@
