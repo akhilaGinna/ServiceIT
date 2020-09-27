@@ -22,10 +22,6 @@
     <title>@ViewBag.Title - ServiceIT Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/Gridmvc")
-    @Scripts.Render("~/bundles/Gridmvc")
-
-
 
 </head>
 <body>
@@ -45,53 +41,3 @@
 </body>
 </html>
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
-@*<table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequestedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeStamp)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProjectName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepartmentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TimeStamp)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.RequestID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.RequestID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.RequestID })
-                </td>
-            </tr>
-        }
-
-    </table>*@
